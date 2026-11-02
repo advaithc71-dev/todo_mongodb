@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Dashboard - To-Do List</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+
+    <h2>✓ To-Do List</h2>
+
+    <div>
+        Welcome, <%= username %>
+
+        <a href="/logout">
+            Logout
+        </a>
+    </div>
+
+</nav>
+
+
+<div class="dashboard">
+
+    <h1>My Tasks</h1>
+
+    <p>Add and manage your daily tasks.</p>
+
+
+    <!-- Add Task Section -->
+
+    <div class="add-task">
+
+        <h2>Add New Task</h2>
+
+        <form method="POST" action="/add">
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Enter task title"
+                required
+            >
+
+            <textarea
+                name="description"
+                placeholder="Enter task description"
+            ></textarea>
+
+            <button type="submit">
+                + Add Task
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Task List -->
+
+    <div class="tasks">
+
+        <% if (tasks.length) { %>
+        <% tasks.forEach((task) => { %>
+
+        <div class="task-card">
+
+            <div class="task-info">
+
+                <h3>
+                    <%= task.title %>
+                </h3>
+
+                <p>
+                    <%= task.description %>
+                </p>
+
+                <span class="status">
+                    <%= task.status %>
+                </span>
+
+            </div>
+
+
+            <div class="buttons">
+
+                <!-- Complete -->
+
+                <a
+                    href="/complete/<%= task._id %>"
+                    class="complete-btn"
+                >
+                    Complete
+                </a>
+
+
+                <!-- Delete -->
+
+                <a
+                    href="/delete/<%= task._id %>"
+                    class="delete-btn"
+                    onclick="return confirm('Delete this task?')"
+                >
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
+
+        <% }); %>
+        <% } else { %>
+
+        <div class="empty">
+
+            <h2>No tasks yet</h2>
+
+            <p>
+                Add your first task above.
+            </p>
+
+        </div>
+
+        <% } %>
+
+    </div>
+
+</div>
+
+</body>
+</html>
